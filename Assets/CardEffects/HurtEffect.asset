@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8bb1a3fbb7158a45beb5b9744ab7eb1, type: 3}
   m_Name: HurtEffect
   m_EditorClassIdentifier: 
-  HealthChange: -20
+  HealthChange: -15
   ManaChange: 0
   SpeedChange: -3

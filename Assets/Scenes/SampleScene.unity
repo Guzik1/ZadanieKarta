@@ -2995,6 +2995,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f8bfe5a77a4428243b52611e24686835, type: 2}
   CardPrefab: {fileID: 7710554998824320413, guid: ff0dcfe28aee51a47a0b488c4ba7effb, type: 3}
   CardParent: {fileID: 1544411743}
+  RandomCardOnStart: 0
 --- !u!1 &2144235499
 GameObject:
   m_ObjectHideFlags: 0

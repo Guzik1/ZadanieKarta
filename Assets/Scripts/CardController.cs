@@ -1,27 +1,29 @@
-using Assets.Scripts;
-using System;
+﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CardController : MonoBehaviour
+namespace Assets.Scripts
 {
-    public TextMeshProUGUI TitleText;
-    public TextMeshProUGUI DescriptionText;
-    public Image Icon;
-    [HideInInspector] public CardEffect UseEffect;
-    [HideInInspector] public Action<CardController> OnCardUseAction;
-
-    public void SetNewData(string title, string decription, Sprite icon, CardEffect useEffect)
+    public abstract class CardController: MonoBehaviour
     {
-        TitleText.text = title;
-        DescriptionText.text = decription;
-        Icon.sprite = icon;
-        UseEffect = useEffect;
-    }
+        public TextMeshProUGUI TitleText;
+        public TextMeshProUGUI DescriptionText;
+        public Image Icon;
+        [HideInInspector] public CardEffect UseEffect;
+        [HideInInspector] public Action<CardController> OnCardUseAction;
 
-    public void OnCardUse()
-    {
-        OnCardUseAction?.Invoke(this);
+        public virtual void SetNewData(string title, string decription, Sprite icon, CardEffect useEffect)
+        {
+            TitleText.text = title;
+            DescriptionText.text = decription;
+            Icon.sprite = icon;
+            UseEffect = useEffect;
+        }
+
+        public void OnCardUse()
+        {
+            OnCardUseAction?.Invoke(this);
+        }
     }
 }

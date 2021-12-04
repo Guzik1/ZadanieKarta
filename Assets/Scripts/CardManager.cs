@@ -14,6 +14,7 @@ namespace Assets.Scripts
         [Header("Card Object")]
         public GameObject CardPrefab;
         public Transform CardParent;
+        public bool RandomCardOnStart = false;
 
         CardController CachedCard;
         AplayableEffect playerAplayEffect;
@@ -23,10 +24,11 @@ namespace Assets.Scripts
             playerAplayEffect = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
             GameObject cardObject = Instantiate(CardPrefab, CardParent);
-            CachedCard = cardObject.GetComponent<CardController>();
+            CachedCard = cardObject.GetComponent<SimplyCardController>();
             CachedCard.OnCardUseAction = OnUseCard;
 
-            //GenerateRandomCard();
+            if(RandomCardOnStart)
+                GenerateRandomCard();
         }
 
         public void GenerateRandomCard()
@@ -46,9 +48,12 @@ namespace Assets.Scripts
 
         public void OnUseCard(CardController card)
         {
-            playerAplayEffect.ApplayEffect(card.UseEffect);
+            if(card.UseEffect != null)
+            {
+                playerAplayEffect.ApplayEffect(card.UseEffect);
 
-            GenerateRandomCard();
+                GenerateRandomCard();
+            }
         }
     }
 }
