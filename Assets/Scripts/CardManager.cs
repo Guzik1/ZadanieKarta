@@ -19,8 +19,12 @@ namespace Assets.Scripts
         CardController CachedCard;
         AplayableEffect playerAplayEffect;
 
+        JSONFileManager fileManager;
+
         void Start()
         {
+            fileManager = new JSONFileManager(Application.dataPath + "\\cards.txt");
+
             playerAplayEffect = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
             GameObject cardObject = Instantiate(CardPrefab, CardParent);
@@ -43,12 +47,25 @@ namespace Assets.Scripts
 
         public void SaveCard()
         {
-            // TODO: implement card save to file in JSON format.
+            if (!CachedCard.Inicialized || CachedCard.Saved)
+                return;
+
+            CachedCard.Saved = true;
+
+            SavedCardsList scl = fileManager.LoadFromFile<SavedCardsList>();
+
+            if (scl == null)
+                scl = new SavedCardsList();
+
+            SavedCard sc = new SavedCard(CachedCard.Title, CachedCard.Desc, CachedCard.Icon.name, CachedCard.UseEffect);
+            scl.Cards.Add(sc);
+
+            fileManager.SaveToFile(scl);           
         }
 
         public void OnUseCard(CardController card)
         {
-            if(card.UseEffect != null)
+            if(CachedCard.Inicialized)
             {
                 playerAplayEffect.ApplayEffect(card.UseEffect);
 

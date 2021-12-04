@@ -531,8 +531,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TitleText: {fileID: 2009242850}
   DescriptionText: {fileID: 1995075748}
-  Icon: {fileID: 1453993603}
+  IconImage: {fileID: 1453993603}
   UseEffect: {fileID: 0}
+  Inicialized: 0
+  Title: 
+  Desc: 
+  Icon: {fileID: 0}
 --- !u!1 &7710554999045116266
 GameObject:
   m_ObjectHideFlags: 0
