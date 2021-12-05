@@ -16,10 +16,10 @@ namespace Assets.Scripts
         public Transform CardParent;
         public bool RandomCardOnStart = false;
 
-        CardController CachedCard;
+        CardController cachedCard;
         AplayableEffect playerAplayEffect;
 
-        JSONFileManager fileManager;
+        ObjectSave fileManager;
 
         void Start()
         {
@@ -28,8 +28,8 @@ namespace Assets.Scripts
             playerAplayEffect = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
             GameObject cardObject = Instantiate(CardPrefab, CardParent);
-            CachedCard = cardObject.GetComponent<SimplyCardController>();
-            CachedCard.OnCardUseAction = OnUseCard;
+            cachedCard = cardObject.GetComponent<SimplyCardController>();
+            cachedCard.OnCardUseAction = OnUseCard;
 
             if(RandomCardOnStart)
                 GenerateRandomCard();
@@ -42,30 +42,30 @@ namespace Assets.Scripts
             Sprite icon = Icons.Count > 0 ? Icons[Random.Range(0, Icons.Count)] : null;
             CardEffect effect = Effects.Count > 0 ? Effects[Random.Range(0, Effects.Count)] : null;
 
-            CachedCard.SetNewData(title, desc, icon, effect);
+            cachedCard.SetNewData(title, desc, icon, effect);
         }
 
         public void SaveCard()
         {
-            if (!CachedCard.Inicialized || CachedCard.Saved)
+            if (!cachedCard.Inicialized || cachedCard.Saved)
                 return;
 
-            CachedCard.Saved = true;
+            cachedCard.Saved = true;
 
-            SavedCardsList scl = fileManager.LoadFromFile<SavedCardsList>();
+            SavedCardsList scl = fileManager.Load<SavedCardsList>();
 
             if (scl == null)
                 scl = new SavedCardsList();
 
-            SavedCard sc = new SavedCard(CachedCard.Title, CachedCard.Desc, CachedCard.Icon.name, CachedCard.UseEffect);
+            SavedCard sc = new SavedCard(cachedCard.Title, cachedCard.Desc, cachedCard.Icon.name, cachedCard.UseEffect);
             scl.Cards.Add(sc);
 
-            fileManager.SaveToFile(scl);           
+            fileManager.Save(scl);           
         }
 
         public void OnUseCard(CardController card)
         {
-            if(CachedCard.Inicialized)
+            if(cachedCard.Inicialized)
             {
                 playerAplayEffect.ApplayEffect(card.UseEffect);
 

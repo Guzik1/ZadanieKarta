@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class JSONFileManager
+    public class JSONFileManager: ObjectSave
     {
         string path;
 
@@ -13,7 +13,7 @@ namespace Assets.Scripts
             this.path = path;
         }
 
-        public void SaveToFile(object objToSave)
+        public void Save(object objToSave)
         {
             Debug.Log($"Save to file, path: { path }");
 
@@ -40,7 +40,7 @@ namespace Assets.Scripts
             }
         }
 
-        public T LoadFromFile<T>()
+        public T Load<T>()
         {
             if (!File.Exists(path))
                 return default(T);
