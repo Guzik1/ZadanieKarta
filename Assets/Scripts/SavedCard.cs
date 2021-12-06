@@ -19,12 +19,12 @@ namespace Assets.Scripts
 
         public SavedCard() { }
 
-        public SavedCard(string title, string desc, string iconName, CardEffect effect)
+        public SavedCard(string title, string desc, string iconName, string effectName)
         {
             Title = title;
             Description = desc;
             IconName = iconName;
-            EffectName = effect.name;
+            EffectName = effectName;
         }
     }
 }

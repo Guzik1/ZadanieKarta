@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -52,15 +53,21 @@ namespace Assets.Scripts
 
             cachedCard.Saved = true;
 
-            SavedCardsList scl = fileManager.Load<SavedCardsList>();
+            string iconName = cachedCard.Icon.name;
+            string effectName = cachedCard.UseEffect.name;
 
-            if (scl == null)
-                scl = new SavedCardsList();
+            Task.Run(() =>
+            {
+                SavedCardsList scl = fileManager.Load<SavedCardsList>();
 
-            SavedCard sc = new SavedCard(cachedCard.Title, cachedCard.Desc, cachedCard.Icon.name, cachedCard.UseEffect);
-            scl.Cards.Add(sc);
+                if (scl == null)
+                    scl = new SavedCardsList();
 
-            fileManager.Save(scl);           
+                SavedCard sc = new SavedCard(cachedCard.Title, cachedCard.Desc, iconName, effectName);
+                scl.Cards.Add(sc);
+
+                fileManager.Save(scl); Debug.Log(4444);
+            });
         }
 
         public void OnUseCard(CardController card)
